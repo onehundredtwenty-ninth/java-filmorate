@@ -16,7 +16,7 @@ import ru.yandex.practicum.filmorate.model.User;
 @RestController
 public class UserController {
 
-  private static int idTracker;
+  private int idTracker;
   private final Map<Integer, User> users = new HashMap<>();
 
   @PostMapping(value = "/users")

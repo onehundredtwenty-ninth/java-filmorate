@@ -16,7 +16,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 @RestController
 public class FilmController {
 
-  private static int idTracker;
+  private int idTracker;
   private final Map<Integer, Film> films = new HashMap<>();
 
   @PostMapping(value = "/films")
