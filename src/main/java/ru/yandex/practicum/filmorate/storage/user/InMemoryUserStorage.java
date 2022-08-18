@@ -42,4 +42,13 @@ public class InMemoryUserStorage implements UserStorage {
   public Collection<User> getUsers() {
     return users.values();
   }
+
+  @Override
+  public User getUserById(int id) {
+    if (users.containsKey(id)) {
+      return users.get(id);
+    } else {
+      throw new IllegalArgumentException("User with id: " + id + " not found");
+    }
+  }
 }
