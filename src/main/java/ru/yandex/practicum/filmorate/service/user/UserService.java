@@ -1,5 +1,7 @@
 package ru.yandex.practicum.filmorate.service.user;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +35,18 @@ public class UserService {
     receivingFriendshipEndUser.getFriends().remove(requestingFriendshipEndUserId);
   }
 
-  public Set<Integer> getCommonFriends(int firstUserId, int secondUserId) {
-    return findCommonElements(
+  public List<User> getFriendsInfo(Set<Integer> usersIds) {
+    List<User> friendsInfo = new ArrayList<>();
+    for (Integer userId : usersIds) {
+      friendsInfo.add(userStorage.getUserById(userId));
+    }
+    return friendsInfo;
+  }
+
+  public List<User> getCommonFriends(int firstUserId, int secondUserId) {
+    return getFriendsInfo(findCommonElements(
         userStorage.getUserById(firstUserId).getFriends(),
-        userStorage.getUserById(secondUserId).getFriends());
+        userStorage.getUserById(secondUserId).getFriends()));
   }
 
   private <T> Set<T> findCommonElements(Set<T> first, Set<T> second) {

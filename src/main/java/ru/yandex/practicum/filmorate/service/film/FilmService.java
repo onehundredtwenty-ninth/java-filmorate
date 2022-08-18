@@ -23,13 +23,17 @@ public class FilmService {
   }
 
   public void removeLike(int filmId, int userId) {
-    filmStorage.getFilmById(filmId).getLikes().remove(userId);
+    if (filmStorage.getFilmById(filmId).getLikes().contains(userId)) {
+      filmStorage.getFilmById(filmId).getLikes().remove(userId);
+    } else {
+      throw new IllegalArgumentException("Like with id: " + userId + " not found");
+    }
   }
 
-  public Collection<Film> getTenMostPopularFilms() {
+  public Collection<Film> getMostPopularFilms(int count) {
     return filmStorage.getFilms().stream()
-        .sorted(Comparator.comparingInt(s -> s.getLikes().size()))
-        .limit(10)
+        .sorted(Comparator.comparingInt((Film film) -> film.getLikes().size()).reversed())
+        .limit(count)
         .collect(Collectors.toList());
   }
 }

@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.storage.film;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ public class InMemoryFilmStorage implements FilmStorage {
     if (film.getId() == null) {
       film.setId(++idTracker);
       log.info("Added film with id: " + film.getId());
+      film.setLikes(new HashSet<>());
       films.put(film.getId(), film);
       return film;
     } else {
@@ -30,6 +32,11 @@ public class InMemoryFilmStorage implements FilmStorage {
   public Film updateFilm(Film film) {
     if (films.containsKey(film.getId())) {
       log.info("Updated film with id: " + film.getId());
+      if (film.getLikes() == null) {
+        film.setLikes(new HashSet<>());
+      } else {
+        film.setLikes(films.get(film.getId()).getLikes());
+      }
       films.put(film.getId(), film);
       return film;
     } else {

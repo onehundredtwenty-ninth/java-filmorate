@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.storage.user;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,7 @@ public class InMemoryUserStorage implements UserStorage {
       user.setId(++idTracker);
       log.info("Added user with id: " + user.getId());
       user.setName("".equals(user.getName()) ? user.getLogin() : user.getName());
+      user.setFriends(new HashSet<>());
       users.put(user.getId(), user);
       return user;
     } else {
@@ -31,6 +33,9 @@ public class InMemoryUserStorage implements UserStorage {
   public User updateUser(User user) {
     if (users.containsKey(user.getId())) {
       log.info("Updated user with id: " + user.getId());
+      if (user.getFriends() == null) {
+        user.setFriends(new HashSet<>());
+      }
       users.put(user.getId(), user);
       return user;
     } else {
