@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import ru.yandex.practicum.filmorate.exception.EntityNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 
 @Slf4j
@@ -40,7 +41,7 @@ public class InMemoryFilmStorage implements FilmStorage {
       films.put(film.getId(), film);
       return film;
     } else {
-      throw new IllegalArgumentException("Film with id: " + film.getId() + " not found");
+      throw new EntityNotFoundException("Film with id: " + film.getId() + " not found");
     }
   }
 
@@ -54,7 +55,7 @@ public class InMemoryFilmStorage implements FilmStorage {
     if (films.containsKey(filmId)) {
       return films.get(filmId);
     } else {
-      throw new IllegalArgumentException("Film with id: " + filmId + " not found");
+      throw new EntityNotFoundException("Film with id: " + filmId + " not found");
     }
   }
 }

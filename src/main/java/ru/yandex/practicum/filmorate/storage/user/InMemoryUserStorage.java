@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import ru.yandex.practicum.filmorate.exception.EntityNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 
 @Slf4j
@@ -39,7 +40,7 @@ public class InMemoryUserStorage implements UserStorage {
       users.put(user.getId(), user);
       return user;
     } else {
-      throw new IllegalArgumentException("User with id: " + user.getId() + " not found");
+      throw new EntityNotFoundException("User with id: " + user.getId() + " not found");
     }
   }
 
@@ -53,7 +54,7 @@ public class InMemoryUserStorage implements UserStorage {
     if (users.containsKey(id)) {
       return users.get(id);
     } else {
-      throw new IllegalArgumentException("User with id: " + id + " not found");
+      throw new EntityNotFoundException("User with id: " + id + " not found");
     }
   }
 }
