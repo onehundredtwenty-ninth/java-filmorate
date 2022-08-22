@@ -19,7 +19,7 @@ public class UserService {
     this.userStorage = userStorage;
   }
 
-  public void addFriend(int requestingFriendshipUserId, int receivingFriendshipUserId) {
+  public void addFriend(long requestingFriendshipUserId, long receivingFriendshipUserId) {
     User requestingFriendshipUser = userStorage.getUserById(requestingFriendshipUserId);
     User receivingFriendshipUser = userStorage.getUserById(receivingFriendshipUserId);
 
@@ -27,7 +27,7 @@ public class UserService {
     receivingFriendshipUser.getFriends().add(requestingFriendshipUserId);
   }
 
-  public void removeFriend(int requestingFriendshipEndUserId, int receivingFriendshipEndUserId) {
+  public void removeFriend(long requestingFriendshipEndUserId, long receivingFriendshipEndUserId) {
     User requestingFriendshipEndUser = userStorage.getUserById(requestingFriendshipEndUserId);
     User receivingFriendshipEndUser = userStorage.getUserById(receivingFriendshipEndUserId);
 
@@ -35,15 +35,15 @@ public class UserService {
     receivingFriendshipEndUser.getFriends().remove(requestingFriendshipEndUserId);
   }
 
-  public List<User> getFriendsInfo(Set<Integer> usersIds) {
+  public List<User> getFriendsInfo(Set<Long> usersIds) {
     List<User> friendsInfo = new ArrayList<>();
-    for (Integer userId : usersIds) {
+    for (Long userId : usersIds) {
       friendsInfo.add(userStorage.getUserById(userId));
     }
     return friendsInfo;
   }
 
-  public List<User> getCommonFriends(int firstUserId, int secondUserId) {
+  public List<User> getCommonFriends(long firstUserId, long secondUserId) {
     return getFriendsInfo(findCommonElements(
         userStorage.getUserById(firstUserId).getFriends(),
         userStorage.getUserById(secondUserId).getFriends()));

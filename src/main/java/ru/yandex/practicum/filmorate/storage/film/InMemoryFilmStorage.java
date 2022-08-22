@@ -13,8 +13,8 @@ import ru.yandex.practicum.filmorate.model.Film;
 @Component
 public class InMemoryFilmStorage implements FilmStorage {
 
-  private int idTracker;
-  private final Map<Integer, Film> films = new HashMap<>();
+  private long idTracker;
+  private final Map<Long, Film> films = new HashMap<>();
 
   @Override
   public Film addFilm(Film film) {
@@ -51,7 +51,7 @@ public class InMemoryFilmStorage implements FilmStorage {
   }
 
   @Override
-  public Film getFilmById(int filmId) {
+  public Film getFilmById(long filmId) {
     if (films.containsKey(filmId)) {
       return films.get(filmId);
     } else {

@@ -18,7 +18,7 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
-  private Integer id;
+  private Long id;
   @Email
   private String email;
   @Pattern(regexp = "^\\S*$")
@@ -28,5 +28,5 @@ public class User {
   @JsonFormat(pattern = "yyyy-MM-dd")
   @Past
   private LocalDate birthday;
-  private Set<Integer> friends;
+  private Set<Long> friends;
 }

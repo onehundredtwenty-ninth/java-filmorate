@@ -13,8 +13,8 @@ import ru.yandex.practicum.filmorate.model.User;
 @Component
 public class InMemoryUserStorage implements UserStorage {
 
-  private int idTracker;
-  private final Map<Integer, User> users = new HashMap<>();
+  private long idTracker;
+  private final Map<Long, User> users = new HashMap<>();
 
   @Override
   public User addUser(User user) {
@@ -50,7 +50,7 @@ public class InMemoryUserStorage implements UserStorage {
   }
 
   @Override
-  public User getUserById(int id) {
+  public User getUserById(long id) {
     if (users.containsKey(id)) {
       return users.get(id);
     } else {

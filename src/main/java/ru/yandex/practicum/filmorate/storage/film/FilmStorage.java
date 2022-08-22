@@ -11,5 +11,5 @@ public interface FilmStorage {
 
   Collection<Film> getFilms();
 
-  Film getFilmById(int filmId);
+  Film getFilmById(long filmId);
 }

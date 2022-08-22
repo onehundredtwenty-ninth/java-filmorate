@@ -137,7 +137,7 @@ class UsersHandlerTest {
         .extract();
 
     User user = User.builder()
-        .id(1)
+        .id(1L)
         .login("doloreUpdate")
         .name("est adipisicing")
         .email("mail@yandex.ru")
@@ -180,7 +180,7 @@ class UsersHandlerTest {
         .extract();
 
     User user = User.builder()
-        .id(-1)
+        .id(-1L)
         .login("doloreUpdate")
         .name("est adipisicing")
         .email("mail@yandex.ru")

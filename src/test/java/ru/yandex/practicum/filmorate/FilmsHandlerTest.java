@@ -163,7 +163,7 @@ class FilmsHandlerTest {
         .extract();
 
     Film film = Film.builder()
-        .id(1)
+        .id(1L)
         .name("Film Updated")
         .description("New film update decription")
         .releaseDate(LocalDate.parse("1989-04-17"))
@@ -206,7 +206,7 @@ class FilmsHandlerTest {
         .extract();
 
     Film film = Film.builder()
-        .id(-1)
+        .id(-1L)
         .name("Film Updated")
         .description("New film update decription")
         .releaseDate(LocalDate.parse("1989-04-17"))

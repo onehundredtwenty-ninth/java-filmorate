@@ -19,11 +19,11 @@ public class FilmService {
     this.filmStorage = filmStorage;
   }
 
-  public void addLike(int filmId, int userId) {
+  public void addLike(long filmId, long userId) {
     filmStorage.getFilmById(filmId).getLikes().add(userId);
   }
 
-  public void removeLike(int filmId, int userId) {
+  public void removeLike(long filmId, long userId) {
     if (filmStorage.getFilmById(filmId).getLikes().contains(userId)) {
       filmStorage.getFilmById(filmId).getLikes().remove(userId);
     } else {

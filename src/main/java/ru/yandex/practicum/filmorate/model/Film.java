@@ -17,7 +17,7 @@ import ru.yandex.practicum.filmorate.constraint.ReleaseDateBefore;
 @Builder
 public class Film {
 
-  private Integer id;
+  private Long id;
   @NotBlank
   private String name;
   @Size(max = 200)
@@ -28,5 +28,5 @@ public class Film {
   private LocalDate releaseDate;
   @Positive
   private float duration;
-  private Set<Integer> likes;
+  private Set<Long> likes;
 }
