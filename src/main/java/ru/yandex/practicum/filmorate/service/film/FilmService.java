@@ -24,8 +24,9 @@ public class FilmService {
   }
 
   public void removeLike(long filmId, long userId) {
-    if (filmStorage.getFilmById(filmId).getLikes().contains(userId)) {
-      filmStorage.getFilmById(filmId).getLikes().remove(userId);
+    var fimLikes = filmStorage.getFilmById(filmId).getLikes();
+    if (fimLikes.contains(userId)) {
+      fimLikes.remove(userId);
     } else {
       throw new EntityNotFoundException("Like with id: " + userId + " not found");
     }
