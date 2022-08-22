@@ -3,8 +3,8 @@ package ru.yandex.practicum.filmorate.controller;
 import java.util.Collection;
 import java.util.List;
 import javax.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,16 +18,11 @@ import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 public class UserController {
 
   private final UserStorage userStorage;
   private final UserService userService;
-
-  @Autowired
-  public UserController(UserStorage userStorage, UserService userService) {
-    this.userStorage = userStorage;
-    this.userService = userService;
-  }
 
   @PostMapping(value = "/users")
   public User addUser(@Valid @RequestBody User user) {

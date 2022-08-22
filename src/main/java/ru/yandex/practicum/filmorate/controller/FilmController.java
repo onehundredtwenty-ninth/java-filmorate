@@ -2,8 +2,8 @@ package ru.yandex.practicum.filmorate.controller;
 
 import java.util.Collection;
 import javax.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,16 +18,11 @@ import ru.yandex.practicum.filmorate.storage.film.FilmStorage;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 public class FilmController {
 
   private final FilmStorage filmStorage;
   private final FilmService filmService;
-
-  @Autowired
-  public FilmController(FilmStorage filmStorage, FilmService filmService) {
-    this.filmStorage = filmStorage;
-    this.filmService = filmService;
-  }
 
   @PostMapping(value = "/films")
   public Film addFilm(@Valid @RequestBody Film film) {
