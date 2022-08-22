@@ -18,8 +18,10 @@ public class InMemoryFilmStorage implements FilmStorage {
 
   @Override
   public Film addFilm(Film film) {
-    if (film.getId() == null) {
-      film.setId(++idTracker);
+    if (!films.containsKey(film.getId())) {
+      if (film.getId() == null) {
+        film.setId(++idTracker);
+      }
       log.info("Added film with id: " + film.getId());
       film.setLikes(new HashSet<>());
       films.put(film.getId(), film);

@@ -18,8 +18,10 @@ public class InMemoryUserStorage implements UserStorage {
 
   @Override
   public User addUser(User user) {
-    if (user.getId() == null) {
-      user.setId(++idTracker);
+    if (!users.containsKey(user.getId())) {
+      if (user.getId() == null) {
+        user.setId(++idTracker);
+      }
       log.info("Added user with id: " + user.getId());
       user.setName("".equals(user.getName()) ? user.getLogin() : user.getName());
       user.setFriends(new HashSet<>());
