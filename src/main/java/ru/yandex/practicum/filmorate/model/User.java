@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDate;
+import java.util.Set;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
@@ -17,7 +18,7 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
-  private Integer id;
+  private Long id;
   @Email
   private String email;
   @Pattern(regexp = "^\\S*$")
@@ -27,4 +28,5 @@ public class User {
   @JsonFormat(pattern = "yyyy-MM-dd")
   @Past
   private LocalDate birthday;
+  private Set<Long> friends;
 }

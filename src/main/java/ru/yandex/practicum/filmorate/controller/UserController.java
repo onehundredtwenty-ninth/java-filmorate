@@ -1,50 +1,66 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import javax.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.user.UserService;
+import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 public class UserController {
 
-  private int idTracker;
-  private final Map<Integer, User> users = new HashMap<>();
+  private final UserStorage userStorage;
+  private final UserService userService;
 
   @PostMapping(value = "/users")
   public User addUser(@Valid @RequestBody User user) {
-    if (user.getId() == null) {
-      user.setId(++idTracker);
-      log.info("Added user with id: " + user.getId());
-      user.setName("".equals(user.getName()) ? user.getLogin() : user.getName());
-      users.put(user.getId(), user);
-      return user;
-    } else {
-      throw new IllegalArgumentException("User with id: " + user.getId() + " already exists");
-    }
+    return userStorage.addUser(user);
   }
 
   @PutMapping(value = "/users")
   public User updateUser(@Valid @RequestBody User user) {
-    if (users.containsKey(user.getId())) {
-      log.info("Updated user with id: " + user.getId());
-      users.put(user.getId(), user);
-      return user;
-    } else {
-      throw new IllegalArgumentException("User with id: " + user.getId() + " not found");
-    }
+    return userStorage.updateUser(user);
   }
 
   @GetMapping(value = "/users")
   public Collection<User> getUsers() {
-    return users.values();
+    return userStorage.getUsers();
+  }
+
+  @GetMapping(value = "/users/{id}")
+  public User getUserById(@PathVariable int id) {
+    return userStorage.getUserById(id);
+  }
+
+  @PutMapping(value = "/users/{id}/friends/{friendId}")
+  public void addFriend(@PathVariable int id, @PathVariable int friendId) {
+    userService.addFriend(id, friendId);
+  }
+
+  @DeleteMapping(value = "/users/{id}/friends/{friendId}")
+  public void deleteFriend(@PathVariable int id, @PathVariable int friendId) {
+    userService.removeFriend(id, friendId);
+  }
+
+  @GetMapping(value = "/users/{id}/friends")
+  public List<User> getUserFriends(@PathVariable int id) {
+    return userService.getFriendsInfo(userStorage.getUserById(id).getFriends());
+  }
+
+  @GetMapping(value = "/users/{id}/friends/common/{otherId}")
+  public List<User> getUserCommonFriends(@PathVariable int id, @PathVariable int otherId) {
+    return userService.getCommonFriends(id, otherId);
   }
 }

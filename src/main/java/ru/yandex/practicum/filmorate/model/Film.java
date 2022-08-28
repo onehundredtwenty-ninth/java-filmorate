@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
+import java.util.Set;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Positive;
@@ -16,7 +17,7 @@ import ru.yandex.practicum.filmorate.constraint.ReleaseDateBefore;
 @Builder
 public class Film {
 
-  private Integer id;
+  private Long id;
   @NotBlank
   private String name;
   @Size(max = 200)
@@ -27,4 +28,5 @@ public class Film {
   private LocalDate releaseDate;
   @Positive
   private float duration;
+  private Set<Long> likes;
 }
