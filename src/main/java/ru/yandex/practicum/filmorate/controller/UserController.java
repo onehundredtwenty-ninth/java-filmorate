@@ -14,34 +14,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.user.UserService;
-import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 public class UserController {
 
-  private final UserStorage userStorage;
   private final UserService userService;
 
   @PostMapping(value = "/users")
   public User addUser(@Valid @RequestBody User user) {
-    return userStorage.addUser(user);
+    return userService.addUser(user);
   }
 
   @PutMapping(value = "/users")
   public User updateUser(@Valid @RequestBody User user) {
-    return userStorage.updateUser(user);
+    return userService.updateUser(user);
   }
 
   @GetMapping(value = "/users")
   public Collection<User> getUsers() {
-    return userStorage.getUsers();
+    return userService.getUsers();
   }
 
   @GetMapping(value = "/users/{id}")
   public User getUserById(@PathVariable int id) {
-    return userStorage.getUserById(id);
+    return userService.getUserById(id);
   }
 
   @PutMapping(value = "/users/{id}/friends/{friendId}")
@@ -56,7 +54,7 @@ public class UserController {
 
   @GetMapping(value = "/users/{id}/friends")
   public List<User> getUserFriends(@PathVariable int id) {
-    return userService.getFriendsInfo(userStorage.getUserById(id).getFriends());
+    return userService.getFriends(id);
   }
 
   @GetMapping(value = "/users/{id}/friends/common/{otherId}")

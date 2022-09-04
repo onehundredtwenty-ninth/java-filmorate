@@ -1,9 +1,7 @@
 package ru.yandex.practicum.filmorate.service.user;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.User;
@@ -20,36 +18,34 @@ public class UserService {
   }
 
   public void addFriend(long requestingFriendshipUserId, long receivingFriendshipUserId) {
-    User requestingFriendshipUser = userStorage.getUserById(requestingFriendshipUserId);
-    User receivingFriendshipUser = userStorage.getUserById(receivingFriendshipUserId);
-
-    requestingFriendshipUser.getFriends().add(receivingFriendshipUserId);
-    receivingFriendshipUser.getFriends().add(requestingFriendshipUserId);
+    userStorage.addFriend(requestingFriendshipUserId, receivingFriendshipUserId);
   }
 
   public void removeFriend(long requestingFriendshipEndUserId, long receivingFriendshipEndUserId) {
-    User requestingFriendshipEndUser = userStorage.getUserById(requestingFriendshipEndUserId);
-    User receivingFriendshipEndUser = userStorage.getUserById(receivingFriendshipEndUserId);
-
-    requestingFriendshipEndUser.getFriends().remove(receivingFriendshipEndUserId);
-    receivingFriendshipEndUser.getFriends().remove(requestingFriendshipEndUserId);
-  }
-
-  public List<User> getFriendsInfo(Set<Long> usersIds) {
-    List<User> friendsInfo = new ArrayList<>();
-    for (Long userId : usersIds) {
-      friendsInfo.add(userStorage.getUserById(userId));
-    }
-    return friendsInfo;
+    userStorage.removeFriend(requestingFriendshipEndUserId, receivingFriendshipEndUserId);
   }
 
   public List<User> getCommonFriends(long firstUserId, long secondUserId) {
-    return getFriendsInfo(findCommonElements(
-        userStorage.getUserById(firstUserId).getFriends(),
-        userStorage.getUserById(secondUserId).getFriends()));
+    return userStorage.getCommonFriends(firstUserId, secondUserId);
   }
 
-  private <T> Set<T> findCommonElements(Set<T> first, Set<T> second) {
-    return first.stream().filter(second::contains).collect(Collectors.toSet());
+  public User addUser(User user) {
+    return userStorage.addUser(user);
+  }
+
+  public User updateUser(User user) {
+    return userStorage.updateUser(user);
+  }
+
+  public Collection<User> getUsers() {
+    return userStorage.getUsers();
+  }
+
+  public User getUserById(long id) {
+    return userStorage.getUserById(id);
+  }
+
+  public List<User> getFriends(int id) {
+    return userStorage.getFriends(id);
   }
 }
