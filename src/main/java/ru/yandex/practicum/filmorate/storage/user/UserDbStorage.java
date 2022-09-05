@@ -83,6 +83,10 @@ public class UserDbStorage implements UserStorage {
     var sqlQuery = "INSERT INTO \"friendship\" (user_id, friend_id, is_confirmed) "
         + "VALUES (?, ?, false);";
 
+    if (isFriendshipAlreadyExists(requestingFriendshipUserId, receivingFriendshipUserId)) {
+      return;
+    }
+
     jdbcTemplate.update(sqlQuery, requestingFriendshipUserId, receivingFriendshipUserId);
   }
 
@@ -119,6 +123,18 @@ public class UserDbStorage implements UserStorage {
         + "WHERE f.user_id = ?";
 
     return jdbcTemplate.query(sqlQuery, (rs, rowNum) -> makeUser(rs), id);
+  }
+
+  private boolean isFriendshipAlreadyExists(long requestingFriendshipUserId, long receivingFriendshipUserId) {
+    var sqlQuery = "SELECT COUNT(*) "
+        + "FROM \"friendship\" f "
+        + "WHERE (user_id = ? AND friend_id = ?) "
+        + "       OR (friend_id = ? AND user_id = ?);";
+
+    Integer rowCount = jdbcTemplate.queryForObject(sqlQuery, Integer.class, requestingFriendshipUserId,
+        receivingFriendshipUserId, requestingFriendshipUserId, receivingFriendshipUserId);
+
+    return rowCount != null && rowCount != 0;
   }
 
   private User makeUser(ResultSet rs) throws SQLException {
