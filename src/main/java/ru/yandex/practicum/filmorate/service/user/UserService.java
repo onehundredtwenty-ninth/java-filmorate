@@ -19,6 +19,9 @@ public class UserService {
   }
 
   public void addFriend(long requestingFriendshipUserId, long receivingFriendshipUserId) {
+    userStorage.getUserById(requestingFriendshipUserId);
+    userStorage.getUserById(receivingFriendshipUserId);
+
     userStorage.addFriend(requestingFriendshipUserId, receivingFriendshipUserId);
   }
 
@@ -31,6 +34,9 @@ public class UserService {
   }
 
   public User addUser(User user) {
+    if ("".equals(user.getName())) {
+      user.setName(user.getLogin());
+    }
     return userStorage.addUser(user);
   }
 

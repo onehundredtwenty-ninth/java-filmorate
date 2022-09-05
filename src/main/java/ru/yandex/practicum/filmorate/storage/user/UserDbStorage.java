@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import ru.yandex.practicum.filmorate.exception.EntityNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 
 @Component
@@ -51,7 +52,12 @@ public class UserDbStorage implements UserStorage {
         + "                             birthday = ? "
         + "WHERE id = ?;";
 
-    jdbcTemplate.update(sqlQuery, user.getEmail(), user.getLogin(), user.getName(), user.getBirthday(), user.getId());
+    int updatedRowsQuantity = jdbcTemplate
+        .update(sqlQuery, user.getEmail(), user.getLogin(), user.getName(), user.getBirthday(), user.getId());
+
+    if (updatedRowsQuantity == 0) {
+      throw new EntityNotFoundException("User with id: " + user.getId() + " not found");
+    }
     return user;
   }
 

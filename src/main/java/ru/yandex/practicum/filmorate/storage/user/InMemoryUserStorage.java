@@ -27,7 +27,6 @@ public class InMemoryUserStorage implements UserStorage {
         user.setId(++idTracker);
       }
       log.info("Added user with id: " + user.getId());
-      user.setName("".equals(user.getName()) ? user.getLogin() : user.getName());
       user.setFriends(new HashSet<>());
       users.put(user.getId(), user);
       return user;
