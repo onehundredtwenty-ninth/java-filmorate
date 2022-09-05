@@ -52,7 +52,7 @@ public class UserService {
     return userStorage.getUserById(id);
   }
 
-  public List<User> getFriends(int id) {
+  public List<User> getFriends(long id) {
     return userStorage.getFriends(id);
   }
 }

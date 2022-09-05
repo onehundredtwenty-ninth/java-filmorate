@@ -44,17 +44,17 @@ public class FilmController {
   }
 
   @GetMapping(value = "/films/{id}")
-  public Film getFilmById(@PathVariable int id) {
+  public Film getFilmById(@PathVariable long id) {
     return filmService.getFilmById(id);
   }
 
   @PutMapping(value = "/films/{id}/like/{userId}")
-  public void addLike(@PathVariable int id, @PathVariable int userId) {
+  public void addLike(@PathVariable long id, @PathVariable long userId) {
     filmService.addLike(id, userId);
   }
 
   @DeleteMapping(value = "/films/{id}/like/{userId}")
-  public void deleteLike(@PathVariable int id, @PathVariable int userId) {
+  public void deleteLike(@PathVariable long id, @PathVariable long userId) {
     filmService.removeLike(id, userId);
   }
 
@@ -69,7 +69,7 @@ public class FilmController {
   }
 
   @GetMapping(value = "/mpa/{id}")
-  public Mpa getMpaById(@PathVariable int id) {
+  public Mpa getMpaById(@PathVariable long id) {
     return filmService.getMpaById(id);
   }
 
@@ -79,7 +79,7 @@ public class FilmController {
   }
 
   @GetMapping(value = "/genres/{id}")
-  public Genre getGenreById(@PathVariable int id) {
+  public Genre getGenreById(@PathVariable long id) {
     return filmService.getGenresById(id);
   }
 }
