@@ -137,6 +137,40 @@ public class FilmDbStorage implements FilmStorage {
     }
   }
 
+  @Override
+  public Collection<Mpa> getMpaList() {
+    var sqlQuery = "SELECT id, name "
+        + "FROM \"mpa\"";
+
+    return jdbcTemplate.query(sqlQuery, (rs, rowNum) -> makeMpa(rs));
+  }
+
+  @Override
+  public Mpa getMpaById(long mpaId) {
+    var sqlQuery = "SELECT id, name "
+        + "FROM \"mpa\" "
+        + "WHERE id = ?";
+
+    return jdbcTemplate.queryForObject(sqlQuery, (rs, rowNum) -> makeMpa(rs), mpaId);
+  }
+
+  @Override
+  public Collection<Genre> getGenres() {
+    var sqlQuery = "SELECT id, name "
+        + "FROM \"genre\"";
+
+    return jdbcTemplate.query(sqlQuery, (rs, rowNum) -> makeGenre(rs));
+  }
+
+  @Override
+  public Genre getGenresById(long genreId) {
+    var sqlQuery = "SELECT id, name "
+        + "FROM \"genre\" "
+        + "WHERE id = ?";
+
+    return jdbcTemplate.queryForObject(sqlQuery, (rs, rowNum) -> makeGenre(rs), genreId);
+  }
+
   private Film makeFilm(ResultSet rs) throws SQLException {
     return Film.builder()
         .id(rs.getLong("id"))
@@ -194,5 +228,13 @@ public class FilmDbStorage implements FilmStorage {
         + "WHERE film_id = ?";
 
     jdbcTemplate.update(sqlQuery, filmId);
+  }
+
+  private Mpa makeMpa(ResultSet rs) throws SQLException {
+    return new Mpa(rs.getLong("id"), rs.getString("name"));
+  }
+
+  private Genre makeGenre(ResultSet rs) throws SQLException {
+    return new Genre(rs.getLong("id"), rs.getString("name"));
   }
 }
