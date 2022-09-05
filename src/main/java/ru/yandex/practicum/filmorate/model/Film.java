@@ -2,7 +2,6 @@ package ru.yandex.practicum.filmorate.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
@@ -32,6 +31,6 @@ public class Film {
   @Positive
   private float duration;
   private Set<Long> likes;
-  private List<String> genres;
+  private Set<Genre> genres;
   private Mpa mpa;
 }
