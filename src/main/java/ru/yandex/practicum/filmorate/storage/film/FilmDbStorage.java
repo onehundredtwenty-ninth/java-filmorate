@@ -140,7 +140,8 @@ public class FilmDbStorage implements FilmStorage {
   @Override
   public Collection<Mpa> getMpaList() {
     var sqlQuery = "SELECT id, name "
-        + "FROM \"mpa\"";
+        + "FROM \"mpa\" "
+        + "ORDER BY id";
 
     return jdbcTemplate.query(sqlQuery, (rs, rowNum) -> makeMpa(rs));
   }
@@ -157,7 +158,8 @@ public class FilmDbStorage implements FilmStorage {
   @Override
   public Collection<Genre> getGenres() {
     var sqlQuery = "SELECT id, name "
-        + "FROM \"genre\"";
+        + "FROM \"genre\" "
+        + "ORDER BY id";
 
     return jdbcTemplate.query(sqlQuery, (rs, rowNum) -> makeGenre(rs));
   }
