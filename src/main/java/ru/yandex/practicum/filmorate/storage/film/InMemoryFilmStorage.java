@@ -10,8 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exception.EntityNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.Genre;
-import ru.yandex.practicum.filmorate.model.Mpa;
 
 @Slf4j
 @Component
@@ -84,25 +82,5 @@ public class InMemoryFilmStorage implements FilmStorage {
     } else {
       throw new EntityNotFoundException("Like with id: " + userId + " not found");
     }
-  }
-
-  @Override
-  public Collection<Mpa> getMpaList() {
-    return null;
-  }
-
-  @Override
-  public Mpa getMpaById(long mpaId) {
-    return null;
-  }
-
-  @Override
-  public Collection<Genre> getGenres() {
-    return null;
-  }
-
-  @Override
-  public Genre getGenresById(long genreId) {
-    return null;
   }
 }

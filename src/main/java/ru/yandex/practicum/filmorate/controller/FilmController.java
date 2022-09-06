@@ -16,16 +16,22 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
 import ru.yandex.practicum.filmorate.model.Mpa;
 import ru.yandex.practicum.filmorate.service.film.FilmService;
+import ru.yandex.practicum.filmorate.service.genre.GenreService;
+import ru.yandex.practicum.filmorate.service.mpa.MpaService;
 
 @Slf4j
 @RestController
 public class FilmController {
 
   private final FilmService filmService;
+  private final MpaService mpaService;
+  private final GenreService genreService;
 
   @Autowired
-  public FilmController(FilmService filmService) {
+  public FilmController(FilmService filmService, MpaService mpaService, GenreService genreService) {
     this.filmService = filmService;
+    this.mpaService = mpaService;
+    this.genreService = genreService;
   }
 
   @PostMapping(value = "/films")
@@ -65,21 +71,21 @@ public class FilmController {
 
   @GetMapping(value = "/mpa")
   public Collection<Mpa> getMpaList() {
-    return filmService.getMpaList();
+    return mpaService.getMpaList();
   }
 
   @GetMapping(value = "/mpa/{id}")
   public Mpa getMpaById(@PathVariable long id) {
-    return filmService.getMpaById(id);
+    return mpaService.getMpaById(id);
   }
 
   @GetMapping(value = "/genres")
   public Collection<Genre> getGenres() {
-    return filmService.getGenres();
+    return genreService.getGenres();
   }
 
   @GetMapping(value = "/genres/{id}")
   public Genre getGenreById(@PathVariable long id) {
-    return filmService.getGenresById(id);
+    return genreService.getGenresById(id);
   }
 }

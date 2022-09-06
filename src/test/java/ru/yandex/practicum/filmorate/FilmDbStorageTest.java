@@ -113,48 +113,6 @@ public class FilmDbStorageTest {
         .isEqualTo(0);
   }
 
-  @Test
-  void getMpaList() {
-    var mpaList = filmDbStorage.getMpaList();
-
-    mpaList = new ArrayList<>(mpaList);
-
-    assertThat(mpaList.size())
-        .isEqualTo(5);
-  }
-
-  @Test
-  void getMpaById() {
-    var mpa = filmDbStorage.getMpaById(1);
-
-    assertThat(mpa.getId())
-        .isEqualTo(1);
-
-    assertThat(mpa.getName())
-        .isEqualTo("G");
-  }
-
-  @Test
-  void getGenresList() {
-    var genres = filmDbStorage.getGenres();
-
-    genres = new ArrayList<>(genres);
-
-    assertThat(genres.size())
-        .isEqualTo(6);
-  }
-
-  @Test
-  void getGenreById() {
-    var mpa = filmDbStorage.getGenresById(1);
-
-    assertThat(mpa.getId())
-        .isEqualTo(1);
-
-    assertThat(mpa.getName())
-        .isEqualTo("Комедия");
-  }
-
   private Film buildRandomFilmObject() {
     return Film.builder()
         .name("testFilmName")
