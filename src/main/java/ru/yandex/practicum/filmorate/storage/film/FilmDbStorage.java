@@ -71,8 +71,9 @@ public class FilmDbStorage implements FilmStorage {
     }
 
     if (film.getGenres() != null) {
-      film.setGenres(film.getGenres().stream().sorted(Comparator.comparingLong(Genre::getId)).collect(
-          Collectors.toCollection(LinkedHashSet::new)));
+      film.setGenres(film.getGenres().stream()
+          .sorted(Comparator.comparingLong(Genre::getId))
+          .collect(Collectors.toCollection(LinkedHashSet::new)));
       deleteOldGenres(film.getId());
       setFilmGenres(film);
     }

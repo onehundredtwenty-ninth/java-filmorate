@@ -76,9 +76,9 @@ public class InMemoryFilmStorage implements FilmStorage {
   }
 
   public void removeLike(long filmId, long userId) {
-    var fimLikes = getFilmById(filmId).getLikes();
-    if (fimLikes.contains(userId)) {
-      fimLikes.remove(userId);
+    var filmLikes = getFilmById(filmId).getLikes();
+    if (filmLikes.contains(userId)) {
+      filmLikes.remove(userId);
     } else {
       throw new EntityNotFoundException("Like with id: " + userId + " not found");
     }
